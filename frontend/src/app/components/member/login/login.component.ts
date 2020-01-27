@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -14,12 +15,17 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSayHi(){
-    alert(this.myApp + this.onGetName())
+  onSayHi() {
+    //alert(this.myApp + this.onGetName())
   }
 
-  onGetName(): string{
+  onGetName(): string {
     return "yai";
+  }
+
+  // any (default)
+  login(loginForm: NgForm) {
+    alert(JSON.stringify(loginForm.value))
   }
 
 }
