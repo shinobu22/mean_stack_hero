@@ -10,6 +10,7 @@ import { RegisterComponent } from './components/member/register/register.compone
 import { HeaderComponent } from './components/shared/header/header.component';
 import { MenuComponent } from './components/shared/menu/menu.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
+import { AuthService } from './services/auth.service';
 
 @NgModule({
   declarations: [
