@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { debounceTime } from "rxjs/operators";
 
 @Component({
   selector: 'app-stock-home',
@@ -7,9 +10,30 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StockHomeComponent implements OnInit {
 
-  constructor() { }
+  mDataArray = [11, 22, 33, 44, 55];
+  mTextSearch = new Subject<string>();
+
+  constructor(private router: Router) { }
 
   ngOnInit() {
+    this.mTextSearch.pipe(
+      debounceTime(2000)
+    ).subscribe(keyword => this.search(keyword));
+  }
+  search(keyword: string): void {
+    console.log(keyword);
+  }
+
+  outofStock() {
+    return 1150;
+  }
+
+  onClickDelete(id: string) {
+    // modal confirm
+  }
+
+  onClickEdit(id: string) {
+    this.router.navigate([`/stock/edit/${id}`])
   }
 
 }

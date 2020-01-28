@@ -1,4 +1,4 @@
-<div class="content-wrapper">
+<div>
     <section class="content-header">
         <div class="container-fluid">
             <div class="row">
@@ -7,7 +7,7 @@
                         <span class="info-box-icon bg-info"><i class="fas fa-box-open"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Stock</span>
-                            <span class="info-box-number">XXX</span>
+                            <span class="info-box-number">{{ mDataArray.length }}</span>
                         </div>
                     </div>
                 </div>
@@ -25,7 +25,7 @@
                         <span class="info-box-icon bg-maroon"><i class="fas fa-minus-circle"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">Sold out</span>
-                            <span class="info-box-number">XXXX</span>
+                            <span class="info-box-number">{{ outofStock() }}</span>
                         </div>
                     </div>
                 </div>
@@ -41,10 +41,12 @@
                         <div class="card-body">
                             <div class="row card-body-header">
                                 <div class="col-5">
-                                    <input class="form-control input-lg" placeholder="Enter search keyword">
+                                    <input (keyup)="mTextSearch.next($event.target.value)" class="form-control input-lg"
+                                        placeholder="Enter search keyword">
                                 </div>
                                 <div class="col-7">
-                                    <a class="btn btn-success float-right btn-add">เพิ่ม</a>
+                                    <a [routerLink]="['/stock/create']"
+                                        class="btn btn-success float-right btn-add">เพิ่ม</a>
                                 </div>
                             </div>
 
@@ -59,17 +61,19 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
+                                    <tr *ngFor="let item of mDataArray">
                                         <td class="text-center">XXXX</td>
                                         <td>
                                             <img class="product_image border" />
                                             <strong class="product_name">XXXX</strong>
                                         </td>
-                                        <td>฿XXX</td>
+                                        <td>฿ {{ 1500000 | number:'1.2-2' }}</td>
                                         <td>XXX PCS.</td>
                                         <td class="text-center">
-                                            <img src="assets/images/ic_edit.png" class="edit_product">
-                                            <img src="assets/images/ic_delete.png" class="delete_product">
+                                            <img (click)="onClickEdit(1150)" src="assets/images/ic_edit.png"
+                                                class="edit_product">
+                                            <img (click)="onClickDelete(1150)" src="assets/images/ic_delete.png"
+                                                class="delete_product">
                                         </td>
                                     </tr>
                                 </tbody>
