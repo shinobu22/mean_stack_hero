@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Product } from 'src/app/models/product.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-stock-create',
@@ -7,9 +9,35 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StockCreateComponent implements OnInit {
 
-  constructor() { }
+  mProduct = new Product();
+  imageSrc: string | ArrayBuffer;
+
+  constructor(private location: Location) {
+    this.mProduct.name = "";
+    this.mProduct.price = 0;
+    this.mProduct.stock = 0;
+  }
 
   ngOnInit() {
   }
 
+  onSubmit() {
+    alert(this.mProduct.name);
+  }
+
+  onCancel() {
+    this.location.back();
+  }
+
+  onUpload(event) {
+    const metaImage = event.target.files[0];
+    if (metaImage) {
+      const reader = new FileReader();
+      reader.readAsDataURL(metaImage);
+      reader.onload = () => {
+        this.imageSrc = reader.result;
+        this.mProduct.image = metaImage;
+      };
+    }
+  }
 }
