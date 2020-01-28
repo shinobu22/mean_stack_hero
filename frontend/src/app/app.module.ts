@@ -11,6 +11,9 @@ import { HeaderComponent } from './components/shared/header/header.component';
 import { MenuComponent } from './components/shared/menu/menu.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
 import { AuthService } from './services/auth.service';
+import { StockHomeComponent } from './components/stock/stock-home/stock-home.component';
+import { StockCreateComponent } from './components/stock/stock-create/stock-create.component';
+import { StockEditComponent } from './components/stock/stock-edit/stock-edit.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +23,9 @@ import { AuthService } from './services/auth.service';
     HeaderComponent,
     MenuComponent,
     FooterComponent,
+    StockHomeComponent,
+    StockCreateComponent,
+    StockEditComponent,
   ],
   imports: [
     BrowserModule,
