@@ -1,0 +1,1 @@
+{"options":{},"indexes":[{"v":{"$numberInt":"2"},"key":{"_id":{"$numberInt":"1"}},"name":"_id_","ns":"cmpos.products"}],"uuid":"59658d4efe5d4b44afc9e92e43fa131d"}
