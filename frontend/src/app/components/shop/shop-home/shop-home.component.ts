@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Product } from 'src/app/models/product.model';
+import { Product, ProductResult } from 'src/app/models/product.model';
 import { NetworkService } from 'src/app/services/network.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { NetworkService } from 'src/app/services/network.service';
   styleUrls: ['./shop-home.component.css']
 })
 export class ShopHomeComponent implements OnInit {
-  mProductArray = new Array<Product>();
+  mProductArray = new Array<ProductResult>();
   mOrderArray = new Array<Product>();
   mTotalPrice = 0;
   mIsPaymentShow = false;
@@ -22,8 +22,11 @@ export class ShopHomeComponent implements OnInit {
   feedData() {
     this.networkService.getProductAll().subscribe(
       data => {
-        const products = data.result as Product[]
-       //todo
+        const products = data.result as ProductResult[];
+        this.mProductArray = products.map(item => {
+          item.image = this.networkService.getImage(item.image);
+          return item;
+        });
       },
       error => {
         console.log(JSON.stringify(error));
@@ -33,28 +36,28 @@ export class ShopHomeComponent implements OnInit {
 
   // Products item Begin
   onClickAddOrder(item: Product, isDecrease: Boolean) {
-    //if (this.mOrderArray.indexOf(item) !== -1) {
-    // if (isDecrease) {
-    //   if (item.qty > 1) {
-    //     item.qty--;
-    //   }
-    // } else {
-    //   item.qty++;
-    // }
-    // } else {
-    //   item.qty = 1;
-    //   // Inserts new elements at the start of an array.
-    //   this.mOrderArray.unshift(item);
-    // }
+    if (this.mOrderArray.indexOf(item) !== -1) {
+      if (isDecrease) {
+        if (item.qty > 1) {
+          item.qty--;
+        }
+      } else {
+        item.qty++;
+      }
+    } else {
+      item.qty = 1;
+      // Inserts new elements at the start of an array.
+      this.mOrderArray.unshift(item);
+    }
 
     this.countSumPrice();
   }
 
   countSumPrice() {
-    // this.mTotalPrice = 0;
-    // this.mOrderArray.forEach(item => {
-    //   this.mTotalPrice += item.price * item.qty;
-    // });
+    this.mTotalPrice = 0;
+    this.mOrderArray.forEach(item => {
+      this.mTotalPrice += item.price * item.qty;
+    });
   }
 
   isSelectedItem(item: Product) {
