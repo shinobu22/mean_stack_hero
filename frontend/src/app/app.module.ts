@@ -16,6 +16,8 @@ import { StockEditComponent } from './components/stock/stock-edit/stock-edit.com
 
 import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
 import { JWTInterceptor } from './services/jwt.interceptor';
+import { ShopHomeComponent } from './components/shop/shop-home/shop-home.component';
+import { ShopPaymentComponent } from './components/shop/shop-payment/shop-payment.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +30,8 @@ import { JWTInterceptor } from './services/jwt.interceptor';
     StockHomeComponent,
     StockCreateComponent,
     StockEditComponent,
+    ShopHomeComponent,
+    ShopPaymentComponent,
   ],
   imports: [
     BrowserModule,
