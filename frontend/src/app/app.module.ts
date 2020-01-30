@@ -14,7 +14,8 @@ import { StockHomeComponent } from './components/stock/stock-home/stock-home.com
 import { StockCreateComponent } from './components/stock/stock-create/stock-create.component';
 import { StockEditComponent } from './components/stock/stock-edit/stock-edit.component';
 
-import { HttpClientModule } from "@angular/common/http";
+import { HttpClientModule, HTTP_INTERCEPTORS } from "@angular/common/http";
+import { JWTInterceptor } from './services/jwt.interceptor';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,9 @@ import { HttpClientModule } from "@angular/common/http";
     FormsModule,
     HttpClientModule,
   ],
-  providers: [], // services
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JWTInterceptor, multi: true },
+  ], // services
   bootstrap: [AppComponent] //index.html
 })
 export class AppModule { }
