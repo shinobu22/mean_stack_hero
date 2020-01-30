@@ -31,6 +31,10 @@ export class NetworkService {
     return this.httpClient.post<ProductResponse>('product', this.makeFormData(data))
   }
 
+  editProduct(id: string, data): Observable<ProductResponse> {
+    return this.httpClient.put<ProductResponse>(`product/${id}`, this.makeFormData(data))
+  }
+
   makeFormData(data: Product): FormData {
     let form = new FormData();
     form.append("name", data.name);

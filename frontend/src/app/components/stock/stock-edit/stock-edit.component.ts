@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Product } from 'src/app/models/product.model';
+import { Product, ProductResult } from 'src/app/models/product.model';
 import { Location } from "@angular/common";
+import { NetworkService } from 'src/app/services/network.service';
 
 @Component({
   selector: 'app-stock-edit',
@@ -13,7 +14,10 @@ export class StockEditComponent implements OnInit {
   mProduct = new Product();
   imageSrc: string | ArrayBuffer;
 
-  constructor(private activatedRoute: ActivatedRoute, private location: Location) {
+  constructor(
+    private activatedRoute: ActivatedRoute, 
+    private location: Location,
+    private networkService: NetworkService) {
     this.mProduct.name = "";
     this.mProduct.price = 0;
     this.mProduct.stock = 0;
@@ -21,12 +25,30 @@ export class StockEditComponent implements OnInit {
 
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
-      alert(params.id)
+      this.feedData(params.id)
     });
+  }
+  feedData(id: any) {
+    this.networkService.getProductById(id).subscribe(
+      result => {
+          let item = result.result as ProductResult;
+          this.mProduct = item;
+      },
+      error => {
+        alert(error.error.message);
+      }
+    )
   }
 
   onSubmit() {
-    alert(this.mProduct.name);
+    this.networkService.editProduct(this.mProduct.product_id.toString(), this.mProduct).subscribe(
+      result => {
+          this.location.back();
+      },
+      error => {
+        alert(error.error.message);
+      }
+    )
   }
 
   onCancel() {
