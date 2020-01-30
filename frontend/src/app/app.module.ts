@@ -10,10 +10,11 @@ import { RegisterComponent } from './components/member/register/register.compone
 import { HeaderComponent } from './components/shared/header/header.component';
 import { MenuComponent } from './components/shared/menu/menu.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
-import { AuthService } from './services/auth.service';
 import { StockHomeComponent } from './components/stock/stock-home/stock-home.component';
 import { StockCreateComponent } from './components/stock/stock-create/stock-create.component';
 import { StockEditComponent } from './components/stock/stock-edit/stock-edit.component';
+
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { StockEditComponent } from './components/stock/stock-edit/stock-edit.com
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    HttpClientModule,
   ],
   providers: [], // services
   bootstrap: [AppComponent] //index.html

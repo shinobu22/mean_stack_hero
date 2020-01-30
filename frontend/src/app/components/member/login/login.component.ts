@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
+import { NetworkService } from 'src/app/services/network.service';
 
 @Component({
   selector: 'app-login',
@@ -12,11 +13,14 @@ export class LoginComponent implements OnInit {
 
   myApp = "POS";
 
-  constructor(private router: Router, private authServive: AuthService) {
+  constructor(
+    private router: Router,
+    private authServive: AuthService,
+    private networkService: NetworkService) {
   }
 
   ngOnInit() {
-    if(this.authServive.isLogin()){
+    if (this.authServive.isLogin()) {
       this.router.navigate(["/stock"])
     }
   }
@@ -31,7 +35,18 @@ export class LoginComponent implements OnInit {
 
   // any (default)
   login(loginForm: NgForm) {
-    this.authServive.login("jfjfjfu34#jfnfjhfhfkfn");
+    this.networkService.login(loginForm.value).subscribe(
+      result => {
+        if (result.token) {
+          this.authServive.login(result.token);
+        } else {
+          alert(result.message);
+        }
+      },
+      error => {
+        alert(error.error.message);
+      }
+    )
   }
 
 }
