@@ -32,6 +32,7 @@ export class StockEditComponent implements OnInit {
     this.networkService.getProductById(id).subscribe(
       result => {
           let item = result.result as ProductResult;
+          this.imageSrc = this.networkService.getImage(item.image);
           this.mProduct = item;
       },
       error => {
